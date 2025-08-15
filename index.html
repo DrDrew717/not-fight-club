@@ -8,8 +8,75 @@
   <script src="./script.js" defer></script>
 </head>
 <body>
-  <header>Header</header>
-  <main>Main</main>
-  <footer>Footer</footer>
+  <!-- Main menu -->
+  <header>
+    <div class="main-menu-container">
+      <span class="page-name">Main</span>
+      <div class="menu-button-box">
+        <img class="home-button" src="./assets/svg/home.svg" alt="Home">
+        <img class="character-button" src="./assets/svg/character.svg" alt="Character">
+        <img class="settings-button" src="./assets/svg/settings.svg" alt="Settings">
+      </div>
+    </div>
+  </header>
+  <main>
+
+    <!-- Registration page -->
+    <div class="reg-form-container">
+      <h1 class="reg-form-header">Create Your Character</h1>
+      <form class="character-name-form">
+        <label class="reg-form-label">Character Name</label>
+        <input class="reg-form-input" type="text">
+        <button class="reg-form-button">Create Character</button>
+      </form>
+    </div>
+
+    <!-- Home page -->
+    <div class="home-container">
+      <button class="fight-button">Fight!</button>
+    </div>
+
+    <!-- Character page -->
+    <div class="character-container">
+      <img class="avatar" src="./assets/img/default.jpg" alt="Avatar">
+      <div>
+        <div class="player-name">Name</div>
+        <div><span class="wins">Wins:</span> <span class="wins-count">0</span> <span class="loses">Loses:</span> <span class="loses-count">0</span></div>
+      </div>
+    </div>
+
+    <!-- Avatar page (popup) -->
+    <div class="avatar-popap">Popup</div>
+
+    <!-- Settings page -->
+    <div class="settings-container">
+      <span class="settings-label">Player Name:</span> <span class="settings-player-name">Name</span><button class="name-edit-button">Edit</button>
+    </div>
+
+    <!-- Battle page -->
+    <div class="battle-container">
+      <div class="fight-wrapper">
+        <div class="player-box">
+            <span class="">Player</span>
+            <img class="" src="./assets/img/default.jpg" alt="Avatar">
+            <div class="player-health">Health</div>
+        </div>
+        <div class="fight-form-box">
+            <span>Please pick 1 Attack zone and 2 Defence zones</span>
+            Form
+        </div>
+        <div class="enemy-box">
+            <span class="">Enemy</span>
+            <img class="" src="./assets/img/default.jpg" alt="Avatar">
+            <div class="enemy-health">Health</div>
+        </div>
+      </div>
+      <div class="log-wrapper">
+        Log
+      </div>
+    </div>
+
+  </main>
+  <footer></footer>
 </body>
 </html>

@@ -1,0 +1,226 @@
+* {
+  box-sizing: border-box;
+  border: 0px solid red;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  height: 100vh;
+  width: 100vw;
+  /*overflow: hidden;*/
+}
+
+/* Registration page */
+
+.reg-form-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  border: 1px solid aquamarine;
+}
+
+.character-name-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reg-form-header {
+  font: 400 24px Times;
+  margin: 0 0 30px 0;
+}
+
+.reg-form-label {
+  font: 400 16px Times;
+  margin: 0 0 5px 0;
+}
+
+.reg-form-input {
+  border: 1px solid rgb(110, 156, 255);
+  border-radius: 5px;
+  margin: 0 0 25px 0;
+  padding: 0 5px;
+  width: 180px;
+  height: 32px;
+  font: 400 16px Times;
+
+}
+
+.reg-form-button {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 160px;
+  height: 44px;
+  font: 400 18px Times;
+  align-self: center;
+}
+
+/* Main menu */
+
+.main-menu-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid black;
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+}
+
+.menu-button-box {
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+  height: 20px;
+}
+
+/* Home page */
+
+.home-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  width: 100%;
+  border: 1px solid rgb(255, 127, 208);
+}
+
+.fight-button {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 100px;
+  height: 44px;
+  font: 400 18px Times;
+  align-self: center;
+}
+
+/* Character page */
+
+.character-container {
+  display: none;
+  flex-direction: row;
+  justify-content: start;
+  align-items: top;
+  padding: 20px;
+  column-gap: 30px;
+  height: calc(100vh - 60px);
+  width: 100%;
+  border: 1px solid rgb(20, 148, 6);
+}
+
+.avatar {
+  width: 300px;
+  height: 350px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.avatar:hover {
+  filter: opacity(0.5);
+}
+
+.player-name {
+  padding: 0 0 10px 0;
+}
+
+.wins {
+  color: green;
+}
+
+.wins-count {
+  color: green;  
+}
+
+.loses {
+  color: red;
+  margin: 0 0 0 10px;
+}
+
+.loses-count {
+  color: red;
+}
+
+/* Popup */
+
+.avatar-popap {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 30vh;
+  width: 40vw;
+  background-color: rgba(128, 128, 128, 0.55);
+  border: 1px solid aquamarine;
+  border-radius: 10px;
+}
+
+/* Settings page */
+
+.settings-container {
+  display: none;
+  flex-direction: row;
+  height: calc(100vh - 60px);
+  width: 100%;
+  padding: 20px;
+  border: 1px solid aquamarine;
+}
+
+.name-edit-button {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
+  font: 400 16px Times;
+}
+
+.settings-player-name {
+  margin: 3px 10px 0 10px;
+}
+
+.settings-label {
+  margin: 3px 0 0 0;
+}
+
+/* Battle page */
+
+.battle-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: calc(100vh - 60px);
+  width: 100%;
+  padding: 20px;
+  border: 1px solid rgb(255, 4, 37);
+}
+
+.fight-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.player-box {
+  border: 1px solid rgb(255, 4, 37);
+}
+
+.enemy-box {
+  border: 1px solid rgb(255, 4, 37);
+}
+
+.fight-form-box {
+  border: 1px solid rgb(255, 4, 37);
+}
+
+.log-wrapper {
+  border: 1px solid rgb(255, 4, 37);
+}
