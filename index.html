@@ -27,8 +27,8 @@
       <form class="character-name-form">
         <label class="reg-form-label">Character Name</label>
         <input class="reg-form-input" type="text">
-        <button class="reg-form-button">Create Character</button>
       </form>
+        <button class="reg-form-button" disabled>Create Character</button>
     </div>
 
     <!-- Home page -->
@@ -50,14 +50,17 @@
 
     <!-- Settings page -->
     <div class="settings-container">
-      <span class="settings-label">Player Name:</span> <span class="settings-player-name">Name</span><button class="name-edit-button">Edit</button>
+      <div class="settings-box">
+      <span class="settings-label">Player Name:</span> <span class="settings-player-name player-name">Name</span><button class="name-edit-button">Edit</button>
+      <input class="settings-input" type="text"><button class="save-button">Save</button>
+      </div>
     </div>
 
     <!-- Battle page -->
     <div class="battle-container">
       <div class="fight-wrapper">
         <div class="player-box">
-            <span class="">Player</span>
+            <span class="player-name">Player</span>
             <img class="" src="./assets/img/default.jpg" alt="Avatar">
             <div class="player-health">Health</div>
         </div>

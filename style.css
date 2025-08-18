@@ -14,13 +14,12 @@ html {
 /* Registration page */
 
 .reg-form-container {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100%;
-  border: 1px solid aquamarine;
 }
 
 .character-name-form {
@@ -47,7 +46,6 @@ html {
   width: 180px;
   height: 32px;
   font: 400 16px Times;
-
 }
 
 .reg-form-button {
@@ -62,7 +60,7 @@ html {
 /* Main menu */
 
 .main-menu-container {
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -88,7 +86,6 @@ html {
   align-items: center;
   height: calc(100vh - 60px);
   width: 100%;
-  border: 1px solid rgb(255, 127, 208);
 }
 
 .fight-button {
@@ -111,7 +108,6 @@ html {
   column-gap: 30px;
   height: calc(100vh - 60px);
   width: 100%;
-  border: 1px solid rgb(20, 148, 6);
 }
 
 .avatar {
@@ -172,10 +168,18 @@ html {
   height: calc(100vh - 60px);
   width: 100%;
   padding: 20px;
-  border: 1px solid aquamarine;
+}
+
+.settings-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
 }
 
 .name-edit-button {
+  display: block;
   border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   width: 50px;
@@ -184,23 +188,44 @@ html {
 }
 
 .settings-player-name {
-  margin: 3px 10px 0 10px;
+  margin: 0 10px 0 10px;
+  padding: 0 0 0 0;
 }
 
 .settings-label {
-  margin: 3px 0 0 0;
+  margin: 0 0 0 0;
+}
+
+.settings-input {
+  display: none;
+  border: 1px solid rgb(110, 156, 255);
+  border-radius: 5px;
+  margin: 0 0 0 10px;
+  padding: 0 5px;
+  width: 180px;
+  height: 32px;
+  font: 400 16px Times;
+}
+
+.save-button {
+  display: none;
+  margin: 0 0 0 10px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
+  font: 400 16px Times;
 }
 
 /* Battle page */
 
 .battle-container {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: flex-start;
   height: calc(100vh - 60px);
   width: 100%;
   padding: 20px;
-  border: 1px solid rgb(255, 4, 37);
 }
 
 .fight-wrapper {
