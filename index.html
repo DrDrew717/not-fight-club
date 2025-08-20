@@ -38,21 +38,56 @@
 
     <!-- Character page -->
     <div class="character-container">
-      <img class="avatar" src="./assets/img/default.jpg" alt="Avatar">
-      <div>
+      <div class="avatar-box">
+        <div class="avatar-button-box">
+          <div class="avatar-button"></div>
+        </div>
+        <img class="avatar" src="./assets/img/default.jpg" alt="Avatar">
+      </div>
+      <div class="name-wins-box">
         <div class="player-name">Name</div>
         <div><span class="wins">Wins:</span> <span class="wins-count">0</span> <span class="loses">Loses:</span> <span class="loses-count">0</span></div>
       </div>
     </div>
 
     <!-- Avatar page (popup) -->
-    <div class="avatar-popap">Popup</div>
+    <div class="avatar-popup-container">
+      <div class="avatar-popup">
+        <div class="close-button"></div>
+        <div class="mini-avatars-box">
+          <div class="mini-avatar-wrapper">
+            <div class="mini-avatar-button-box">
+              <div class="avatar-button1 mini-avatar-button"></div>
+            </div>
+            <img class="mini-avatar" src="./assets/img/default.jpg" alt="Avatar">
+          </div>
+          <div class="mini-avatar-wrapper">
+            <div class="mini-avatar-button-box">
+              <div class="avatar-button2 mini-avatar-button"></div>
+            </div>            
+            <img class="mini-avatar" src="./assets/img/avatar1.png" alt="Avatar">
+          </div>
+          <div class="mini-avatar-wrapper">
+            <div class="mini-avatar-button-box">
+              <div class="avatar-button3 mini-avatar-button"></div>
+            </div>
+            <img class="mini-avatar" src="./assets/img/avatar2.jpg" alt="Avatar">
+          </div>
+          <div class="mini-avatar-wrapper">
+            <div class="mini-avatar-button-box">
+              <div class="avatar-button4 mini-avatar-button"></div>
+            </div>
+            <img class="mini-avatar" src="./assets/img/avatar3.jpg" alt="Avatar">
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Settings page -->
     <div class="settings-container">
       <div class="settings-box">
       <span class="settings-label">Player Name:</span> <span class="settings-player-name player-name">Name</span><button class="name-edit-button">Edit</button>
-      <input class="settings-input" type="text"><button class="save-button">Save</button>
+      <input class="settings-input" type="text" value="Name"><button class="save-button">Save</button>
       </div>
     </div>
 
@@ -61,21 +96,56 @@
       <div class="fight-wrapper">
         <div class="player-box">
             <span class="player-name">Player</span>
-            <img class="" src="./assets/img/default.jpg" alt="Avatar">
-            <div class="player-health">Health</div>
+            <img class="player-avatar" src="./assets/img/default.jpg" alt="Avatar">
+            <div class="player-health"></div>
+            <div><span class="">150</span>/150</div>
         </div>
         <div class="fight-form-box">
             <span>Please pick 1 Attack zone and 2 Defence zones</span>
-            Form
+            <div class="form-box">
+                <div class="attack-form-box">
+                  <div>Attack Zones</div>
+                  <div><span>Head </span><input type="radio" name="attack-zones" value="head"></div>
+                  <div><span>Neck </span><input type="radio" name="attack-zones" value="neck"></div>
+                  <div><span>Body </span><input type="radio" name="attack-zones" value="body"></div>
+                  <div><span>Belly </span><input type="radio" name="attack-zones" value="belly"></div>
+                  <div><span>Legs </span><input type="radio" name="attack-zones" value="legs"></div>
+                </div>
+                <div class="defence-form-box">
+                  <div>Defence Zones</div>
+                  <div><input type="radio" name="defence-zones" value="head"><span> Head</span></div>
+                  <div><input type="radio" name="defence-zones" value="neck"><span> Neck</span></div>
+                  <div><input type="radio" name="defence-zones" value="body"><span> Body</span></div>
+                  <div><input type="radio" name="defence-zones" value="belly"><span> Belly</span></div>
+                  <div><input type="radio" name="defence-zones" value="legs"><span> Legs</span></div>
+                </div>
+            </div>
+            <button class="attack-button">Attack!</button>
         </div>
-        <div class="enemy-box">
+        <div class="player-box">
             <span class="">Enemy</span>
-            <img class="" src="./assets/img/default.jpg" alt="Avatar">
-            <div class="enemy-health">Health</div>
+            <img class="player-avatar" src="./assets/img/default.jpg" alt="Avatar">
+            <div class="enemy-health"></div>
+            <div><span class="">150</span>/150</div>
         </div>
       </div>
       <div class="log-wrapper">
-        Log
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
+        <div>Log</div>
       </div>
     </div>
 

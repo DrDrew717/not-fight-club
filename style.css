@@ -110,19 +110,59 @@ html {
   width: 100%;
 }
 
+.avatar-box {
+  position: relative;
+  width: 300px;
+  height: 350px;
+}
+
 .avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 300px;
   height: 350px;
   border: 1px solid black;
   border-radius: 10px;
+  z-index: 1;
 }
 
-.avatar:hover {
-  filter: opacity(0.5);
+.avatar-button-box {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 350px;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+.avatar-button-box:hover {
+  opacity: 1;
+}
+
+.avatar-button {
+  background: white url('./assets/svg/edit.svg') center no-repeat;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
 .player-name {
-  padding: 0 0 10px 0;
+  padding: 0 0 0 0;
+}
+
+.name-wins-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  row-gap: 10px;
 }
 
 .wins {
@@ -144,20 +184,88 @@ html {
 
 /* Popup */
 
-.avatar-popap {
+.avatar-popup-container {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: ;
+  pointer-events: ;
+  background-color: rgba(255, 255, 255, 0.45);
+  z-index: 9; 
+}
+
+.avatar-popup {
   display: none;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: absolute;
+  padding: 10px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 30vh;
-  width: 40vw;
+  height: 50vh;
+  width: 50vw;
   background-color: rgba(128, 128, 128, 0.55);
-  border: 1px solid aquamarine;
-  border-radius: 10px;
+  border-radius: 15px;
+  z-index: 15;
+  pointer-events: ;
+}
+
+.mini-avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 165px;
+  height: 200px;
+  z-index: 1;
+}
+
+.mini-avatar-button {
+  background: white url('./assets/svg/check_circle.svg') center no-repeat;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.close-button {
+  align-self: flex-end;
+  background: white url("./assets/svg/close.svg") no-repeat center;
+  background-size: 20px 20px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+}
+
+.mini-avatars-box {
+  padding: 10px 0 0 0;
+  display: flex;
+  column-gap: 10px;
+}
+
+.mini-avatar-wrapper {
+  position: relative;
+  width: 165px;
+  height: 200px;
+}
+ 
+.mini-avatar-button-box {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 165px;
+  height: 200px;
+  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.mini-avatar-button-box:hover {
+  opacity: 1;
 }
 
 /* Settings page */
@@ -225,27 +333,92 @@ html {
   justify-content: flex-start;
   height: calc(100vh - 60px);
   width: 100%;
-  padding: 20px;
 }
 
 .fight-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  padding: 20px;
+  height: 100%;
 }
 
 .player-box {
-  border: 1px solid rgb(255, 4, 37);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 20px 0 0 0;
 }
 
-.enemy-box {
-  border: 1px solid rgb(255, 4, 37);
+.player-avatar {
+  width: 300px;
+  height: 350px;
+  margin: 20px 0;
+}
+
+.player-health {
+  width: 300px;
+  height: 16px;
+  background-color: rgb(165, 0, 0);
+  border-radius: 5px;
+}
+
+.enemy-health {
+  width: 300px;
+  height: 16px;
+  background-color: rgb(165, 0, 0);
+  border-radius: 5px;
 }
 
 .fight-form-box {
-  border: 1px solid rgb(255, 4, 37);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.attack-form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+  padding: 0 10px 0 0;
+  width: 120px;
+  height: 150px;
+  border-right: 1px solid rgb(0, 0, 0);
+}
+
+.defence-form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  padding: 0 0 0 10px;
+  width: 120px;
+  height: 150px;
+}
+
+.attack-button {
+  display: block;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 90px;
+  height: 40px;
+  font: 400 16px Times;
 }
 
 .log-wrapper {
-  border: 1px solid rgb(255, 4, 37);
+  padding: 20px;
+  height: 230px;
+  overflow-y: auto; 
 }
