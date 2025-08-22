@@ -32,8 +32,37 @@ const avatarButton4 = document.querySelector('.avatar-button4');
 const avatar = document.querySelector('.avatar');
 const avatarBattle = document.querySelector('.player-avatar');
 
+const player = {playerName: 777, avatar: './assets/img/default.png', playerHealth: 150, remainingPlayerHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 2, hitPower: 10};
+const remainingPlayerHealth = document.querySelector('.player-current-health');
+
+const currentEnemy = chooseRandomEnemy();
+const enemyName = document.querySelector('.enemy-name');
+const enemyAvatar = document.querySelector('.enemy-avatar');
+const enemyInitialHealth = document.querySelector('.enemy-initial-health');
+const remainingEnemyHealth = document.querySelector('.remaining-enemy-health');
+const fightLog = document.querySelector('.log');
+const battlePopupContainer = document.querySelector('.battle-popup-container');
+const battlePopup = document.querySelector('.battle-popup');
+const battleResult = document.querySelector('.battle-result');
+
+let fightIsGoing = false;
+
 avatar.src = userAvatar || './assets/img/default.jpg';
 avatarBattle.src = userAvatar || './assets/img/default.jpg';
+
+// Choose enemy
+
+function chooseRandomEnemy() {
+  const enemies = [
+    {enemyName: 'Snow troll', avatar: './assets/img/snowtroll.png', enemyHealth: 150, remainingEnemyHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 3, hitPower: 20},
+    {enemyName: 'Space marine', avatar: './assets/img/spacemarine.png', enemyHealth: 150, remainingEnemyHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 2, hitPower: 20},
+    {enemyName: 'Spider', avatar: './assets/img/spider.png', enemyHealth: 100, remainingEnemyHealth: 100, numOfAttackZones: 2, numOfDefenceZones: 1, hitPower: 10},
+  ];
+  const randomIndex = Math.floor(Math.random() * enemies.length);
+  return enemies[randomIndex];
+}
+
+// Registration form
 
 if (!userName) {
   charPage.style.display = 'none';
@@ -93,21 +122,12 @@ settingsButton.addEventListener('click', function() {
   pageName.textContent = 'Settings';
 })
 
-fightButton.addEventListener('click', function() {
-  charPage.style.display = 'none';
-  settingsPage.style.display = 'none';
-  homePage.style.display = 'none';
-  battlePage.style.display = 'flex';
-  pageName.textContent = 'Battle';
-})
-
 nameEditButton.addEventListener('click', function() {
   saveButton.style.display = 'inline-block';
   settingsInput.value = localStorage.getItem('userName');
   settingsInput.style.display = 'inline-block';
   nameEditButton.style.display = 'none';
   settingsPlayerName.style.display = 'none';
-
 })
 
 saveButton.addEventListener('click', function() {
@@ -171,3 +191,113 @@ avatarButton4.addEventListener('click', function() {
   avatarBattle.src = './assets/img/avatar3.jpg';
   localStorage.setItem('userAvatar', './assets/img/avatar3.jpg');
 })
+
+// FIGHT PAGE START
+
+fightButton.addEventListener('click', function() {
+  charPage.style.display = 'none';
+  settingsPage.style.display = 'none';
+  homePage.style.display = 'none';
+  battlePage.style.display = 'flex';
+  pageName.textContent = 'Battle';
+  chooseRandomEnemy();
+  console.log(currentEnemy);
+  enemyName.textContent = currentEnemy.enemyName;
+  enemyAvatar.src = currentEnemy.avatar;
+  enemyInitialHealth.textContent = currentEnemy.enemyHealth;
+  remainingEnemyHealth.textContent = currentEnemy.remainingEnemyHealth;
+})
+
+// FIGHT
+
+const attackButton = document.querySelector('.attack-button');
+const attackZonesForm = document.querySelectorAll('input[name="attack-zones"]');
+const defenceZonesForm = document.querySelectorAll('input[name="defence-zones"]');
+
+function battleFormValidation() {
+  const radioButtons = [...attackZonesForm].filter(item => item.checked).length;
+  const checkBoxes = [...defenceZonesForm].filter(item => item.checked).length;
+  attackButton.disabled = !(radioButtons === 1 && checkBoxes === 2);
+}; 
+
+[...attackZonesForm, ...defenceZonesForm].forEach(item => item.addEventListener("change", battleFormValidation));
+
+function randomAttackZones(numOfAttackZones) {
+  const count = 5;
+  const arr = Array(count).fill(false);
+  const indices = [];
+
+  while (indices.length < numOfAttackZones) {
+    const random = Math.floor(Math.random() * count);
+    if (!indices.includes(random)) {
+      indices.push(random);
+      arr[random] = true;
+    }
+  }
+  return arr;
+}
+
+function randomDefenceZones(numOfDefenceZones) {
+  const count = 5;
+  const arr = Array(count).fill(false);
+  const indices = [];
+
+  while (indices.length < numOfDefenceZones) {
+    const random = Math.floor(Math.random() * count);
+    if (!indices.includes(random)) {
+      indices.push(random);
+      arr[random] = true;
+    }
+  }
+  return arr;
+}
+
+function makeTurn(arr1, arr2, arr3, arr4, obj) {
+  for (let i = 0; i < 5; i++) {
+    if (arr1[i] === true) {
+      if (arr2[i] === true) {
+        fightLog.innerHTML += 'противник получил 0 урона, удар в блок!<br>';
+      } else {
+        fightLog.innerHTML += 'противник получил -10 урона, удар попал в цель!<br>';
+        obj.remainingEnemyHealth = obj.remainingEnemyHealth - 10;
+        remainingEnemyHealth.textContent = currentEnemy.remainingEnemyHealth;
+      }
+    }
+  }
+  for (let i = 0; i < 5; i++) {
+    if (arr3[i] === true) {
+      if (arr4[i] === true) {
+        fightLog.innerHTML += 'игрок получил 0 урона, удар в блок!<br>';
+      } else {
+        fightLog.innerHTML += 'игрок получил -10 урона, удар попал в цель!<br>';
+        player.remainingPlayerHealth = player.remainingPlayerHealth - 10;
+        remainingPlayerHealth.textContent = player.remainingPlayerHealth;
+      }
+    }
+  }
+  if (player.remainingPlayerHealth <=0) {
+    remainingPlayerHealth.textContent = 0;
+    battlePopupContainer.style.display = 'flex';
+    battlePopup.style.display = 'flex';
+    battleResult.textContent = "Maybe next time :(";
+  }
+  if (obj.remainingEnemyHealth <=0) {
+    remainingEnemyHealth.textContent = 0;
+    battlePopupContainer.style.display = 'flex';
+    battlePopup.style.display = 'flex';
+    battleResult.textContent = "Congratulations on your win!";
+  }
+}
+
+attackButton.addEventListener('click', function() {
+  fightIsGoing = true;
+  const playerAttackZones = [...attackZonesForm].map(item => item.checked);
+  const playerDefenceZones = [...defenceZonesForm].map(item => item.checked);
+  console.log('PAZ', playerAttackZones);
+  console.log('PDZ', playerDefenceZones);
+  console.log('EAZ', randomAttackZones(currentEnemy.numOfAttackZones));
+  console.log('EDZ', randomDefenceZones(currentEnemy.numOfDefenceZones));
+  makeTurn(playerAttackZones, randomDefenceZones(currentEnemy.numOfDefenceZones), randomAttackZones(currentEnemy.numOfAttackZones), playerDefenceZones, currentEnemy);
+})
+
+

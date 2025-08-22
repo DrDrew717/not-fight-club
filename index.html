@@ -98,7 +98,7 @@
             <span class="player-name">Player</span>
             <img class="player-avatar" src="./assets/img/default.jpg" alt="Avatar">
             <div class="player-health"></div>
-            <div><span class="">150</span>/150</div>
+            <div><span class="player-current-health">150</span>/<span class="player-initial-health">150</span></div>
         </div>
         <div class="fight-form-box">
             <span>Please pick 1 Attack zone and 2 Defence zones</span>
@@ -113,39 +113,34 @@
                 </div>
                 <div class="defence-form-box">
                   <div>Defence Zones</div>
-                  <div><input type="radio" name="defence-zones" value="head"><span> Head</span></div>
-                  <div><input type="radio" name="defence-zones" value="neck"><span> Neck</span></div>
-                  <div><input type="radio" name="defence-zones" value="body"><span> Body</span></div>
-                  <div><input type="radio" name="defence-zones" value="belly"><span> Belly</span></div>
-                  <div><input type="radio" name="defence-zones" value="legs"><span> Legs</span></div>
+                  <div><input type="checkbox" name="defence-zones" value="head" id="head"><label for="head"> Head</label></div>
+                  <div><input type="checkbox" name="defence-zones" value="neck" id="neck"><label for="neck"> Neck</label></div>
+                  <div><input type="checkbox" name="defence-zones" value="body" id="body"><label for="body"> Body</label></div>
+                  <div><input type="checkbox" name="defence-zones" value="belly" id="belly"><label for="belly"> Belly</label></div>
+                  <div><input type="checkbox" name="defence-zones" value="legs" id="legs"><label for="legs"> Legs</label></div>
                 </div>
             </div>
-            <button class="attack-button">Attack!</button>
+            <button class="attack-button" disabled>Attack!</button>
         </div>
         <div class="player-box">
-            <span class="">Enemy</span>
-            <img class="player-avatar" src="./assets/img/default.jpg" alt="Avatar">
+            <span class="enemy-name">Enemy</span>
+            <img class="enemy-avatar" src="./assets/img/default.jpg" alt="Avatar">
             <div class="enemy-health"></div>
-            <div><span class="">150</span>/150</div>
+            <div><span class="remaining-enemy-health">150</span>/<span class="enemy-initial-health">150</span></div>
         </div>
       </div>
       <div class="log-wrapper">
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
-        <div>Log</div>
+        <div class="log"></div>
+      </div>
+    </div>
+
+    <!-- Battle result (popup) -->
+    <div class="battle-popup-container">
+      <div class="battle-popup">
+        <div class="close-button"></div>
+        <div class="battle-result-box">
+          <div class="battle-result">You are winner!</div>
+        </div>
       </div>
     </div>
 
