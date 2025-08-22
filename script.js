@@ -13,9 +13,13 @@ const fightButton = document.querySelector('.fight-button');
 const pageName = document.querySelector('.page-name');
 const playerName = document.querySelectorAll('.player-name');
 const nameEditButton = document.querySelector('.name-edit-button');
+const losesCount = document.querySelector('.loses-count');
+const winsCount = document.querySelector('.wins-count');
 
 const userName = localStorage.getItem('userName');
 const userAvatar = localStorage.getItem('userAvatar');
+const userWins = localStorage.getItem('userWins');
+const userLoses = localStorage.getItem('userLoses');
 
 const settingsInput = document.querySelector('.settings-input');
 const saveButton = document.querySelector('.save-button');
@@ -44,18 +48,34 @@ const fightLog = document.querySelector('.log');
 const battlePopupContainer = document.querySelector('.battle-popup-container');
 const battlePopup = document.querySelector('.battle-popup');
 const battleResult = document.querySelector('.battle-result');
+const resultCloseButton = document.querySelector('.result-close-button');
+const playerHealthLevel = document.querySelector('.player-health');
+const enemyHealthLevel = document.querySelector('.enemy-health');
 
 let fightIsGoing = false;
 
 avatar.src = userAvatar || './assets/img/default.jpg';
 avatarBattle.src = userAvatar || './assets/img/default.jpg';
 
+// Wins & Loses Count  
+
+if (!userWins && !userLoses) {
+  localStorage.setItem('userLoses', 0);
+  localStorage.setItem('userWins', 0);
+  losesCount.textContent = localStorage.getItem('userLoses');
+  winsCount.textContent = localStorage.getItem('userWins');
+} else {
+  losesCount.textContent = localStorage.getItem('userLoses');
+  winsCount.textContent = localStorage.getItem('userWins');
+}
+
+
 // Choose enemy
 
 function chooseRandomEnemy() {
   const enemies = [
     {enemyName: 'Snow troll', avatar: './assets/img/snowtroll.png', enemyHealth: 150, remainingEnemyHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 3, hitPower: 20},
-    {enemyName: 'Space marine', avatar: './assets/img/spacemarine.png', enemyHealth: 150, remainingEnemyHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 2, hitPower: 20},
+    {enemyName: 'Space marine', avatar: './assets/img/spacemarine.png', enemyHealth: 120, remainingEnemyHealth: 120, numOfAttackZones: 1, numOfDefenceZones: 2, hitPower: 20},
     {enemyName: 'Spider', avatar: './assets/img/spider.png', enemyHealth: 100, remainingEnemyHealth: 100, numOfAttackZones: 2, numOfDefenceZones: 1, hitPower: 10},
   ];
   const randomIndex = Math.floor(Math.random() * enemies.length);
@@ -214,6 +234,16 @@ const attackButton = document.querySelector('.attack-button');
 const attackZonesForm = document.querySelectorAll('input[name="attack-zones"]');
 const defenceZonesForm = document.querySelectorAll('input[name="defence-zones"]');
 
+function changePlayerHealthLevel() {
+  let percent = ((player.remainingPlayerHealth / 150) * 100);
+  playerHealthLevel.style.width = `${percent}%`;
+}
+
+function changeEnemyHealthLevel() {
+  let percent = ((currentEnemy.remainingEnemyHealth / currentEnemy.enemyHealth) * 100);
+  enemyHealthLevel.style.width = `${percent}%`;
+}
+
 function battleFormValidation() {
   const radioButtons = [...attackZonesForm].filter(item => item.checked).length;
   const checkBoxes = [...defenceZonesForm].filter(item => item.checked).length;
@@ -256,22 +286,24 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
   for (let i = 0; i < 5; i++) {
     if (arr1[i] === true) {
       if (arr2[i] === true) {
-        fightLog.innerHTML += 'противник получил 0 урона, удар в блок!<br>';
+        fightLog.innerHTML = 'противник получил 0 урона, удар в блок!<br>' + fightLog.innerHTML;
       } else {
-        fightLog.innerHTML += 'противник получил -10 урона, удар попал в цель!<br>';
+        fightLog.innerHTML = 'противник получил -10 урона, удар попал в цель!<br>' + fightLog.innerHTML;
         obj.remainingEnemyHealth = obj.remainingEnemyHealth - 10;
         remainingEnemyHealth.textContent = currentEnemy.remainingEnemyHealth;
+        changeEnemyHealthLevel();
       }
     }
   }
   for (let i = 0; i < 5; i++) {
     if (arr3[i] === true) {
       if (arr4[i] === true) {
-        fightLog.innerHTML += 'игрок получил 0 урона, удар в блок!<br>';
+        fightLog.innerHTML = 'игрок получил 0 урона, удар в блок!<br>' + fightLog.innerHTML;
       } else {
-        fightLog.innerHTML += 'игрок получил -10 урона, удар попал в цель!<br>';
+        fightLog.innerHTML = 'игрок получил -10 урона, удар попал в цель!<br>' + fightLog.innerHTML;
         player.remainingPlayerHealth = player.remainingPlayerHealth - 10;
         remainingPlayerHealth.textContent = player.remainingPlayerHealth;
+        changePlayerHealthLevel();
       }
     }
   }
@@ -280,12 +312,14 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
     battlePopupContainer.style.display = 'flex';
     battlePopup.style.display = 'flex';
     battleResult.textContent = "Maybe next time :(";
+    localStorage.setItem('userLoses', Number(localStorage.getItem('userLoses')) + 1);
   }
   if (obj.remainingEnemyHealth <=0) {
     remainingEnemyHealth.textContent = 0;
     battlePopupContainer.style.display = 'flex';
     battlePopup.style.display = 'flex';
     battleResult.textContent = "Congratulations on your win!";
+    localStorage.setItem('userWins', Number(localStorage.getItem('userWins')) + 1);
   }
 }
 
@@ -300,4 +334,18 @@ attackButton.addEventListener('click', function() {
   makeTurn(playerAttackZones, randomDefenceZones(currentEnemy.numOfDefenceZones), randomAttackZones(currentEnemy.numOfAttackZones), playerDefenceZones, currentEnemy);
 })
 
-
+resultCloseButton.addEventListener('click', function() {
+  charPage.style.display = 'flex';
+  settingsPage.style.display = 'none';
+  homePage.style.display = 'none';
+  battlePage.style.display = 'none';
+  battlePopupContainer.style.display = 'none';
+  battlePopup.style.display = 'none';
+  losesCount.textContent = localStorage.getItem('userLoses');
+  winsCount.textContent = localStorage.getItem('userWins');
+  player.remainingPlayerHealth = 150;
+  currentEnemy.remainingEnemyHealth = currentEnemy.enemyHealth;
+  remainingPlayerHealth.textContent = player.remainingPlayerHealth;
+  changeEnemyHealthLevel();
+  changePlayerHealthLevel();
+})
