@@ -39,7 +39,7 @@ const avatarBattle = document.querySelector('.player-avatar');
 const player = {playerName: 777, avatar: './assets/img/default.png', playerHealth: 150, remainingPlayerHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 2, hitPower: 10};
 const remainingPlayerHealth = document.querySelector('.player-current-health');
 
-const currentEnemy = chooseRandomEnemy();
+let currentEnemy = chooseRandomEnemy();
 const enemyName = document.querySelector('.enemy-name');
 const enemyAvatar = document.querySelector('.enemy-avatar');
 const enemyInitialHealth = document.querySelector('.enemy-initial-health');
@@ -74,7 +74,7 @@ if (!userWins && !userLoses) {
 
 function chooseRandomEnemy() {
   const enemies = [
-    {enemyName: 'Snow troll', avatar: './assets/img/snowtroll.png', enemyHealth: 150, remainingEnemyHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 3, hitPower: 20},
+    {enemyName: 'Snow troll', avatar: './assets/img/snowtroll.png', enemyHealth: 150, remainingEnemyHealth: 150, numOfAttackZones: 1, numOfDefenceZones: 3, hitPower: 10},
     {enemyName: 'Space marine', avatar: './assets/img/spacemarine.png', enemyHealth: 120, remainingEnemyHealth: 120, numOfAttackZones: 1, numOfDefenceZones: 2, hitPower: 20},
     {enemyName: 'Spider', avatar: './assets/img/spider.png', enemyHealth: 100, remainingEnemyHealth: 100, numOfAttackZones: 2, numOfDefenceZones: 1, hitPower: 10},
   ];
@@ -215,12 +215,12 @@ avatarButton4.addEventListener('click', function() {
 // FIGHT PAGE START
 
 fightButton.addEventListener('click', function() {
+  currentEnemy = chooseRandomEnemy();
   charPage.style.display = 'none';
   settingsPage.style.display = 'none';
   homePage.style.display = 'none';
   battlePage.style.display = 'flex';
   pageName.textContent = 'Battle';
-  chooseRandomEnemy();
   console.log(currentEnemy);
   enemyName.textContent = currentEnemy.enemyName;
   enemyAvatar.src = currentEnemy.avatar;
@@ -233,6 +233,15 @@ fightButton.addEventListener('click', function() {
 const attackButton = document.querySelector('.attack-button');
 const attackZonesForm = document.querySelectorAll('input[name="attack-zones"]');
 const defenceZonesForm = document.querySelectorAll('input[name="defence-zones"]');
+
+function clearInputs() {
+  defenceZonesForm.forEach(item => {
+    item.checked = false;
+  });
+  attackZonesForm.forEach(item => {
+    item.checked = false;
+  });
+}
 
 function changePlayerHealthLevel() {
   let percent = ((player.remainingPlayerHealth / 150) * 100);
@@ -282,14 +291,32 @@ function randomDefenceZones(numOfDefenceZones) {
   return arr;
 }
 
+function randomK(probability) {
+  return Math.random() < probability ? 1 : 1.5;
+}
+
 function makeTurn(arr1, arr2, arr3, arr4, obj) {
+  const arr5 = ['Head', 'Neck', 'Body', 'Belly', 'Legs'];
   for (let i = 0; i < 5; i++) {
     if (arr1[i] === true) {
       if (arr2[i] === true) {
-        fightLog.innerHTML = 'противник получил 0 урона, удар в блок!<br>' + fightLog.innerHTML;
+        let k = randomK(0.85);
+        if (k === 1) {
+          fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> but ${currentEnemy.enemyName} was able to protect his ${arr5[i]}.<br>` + fightLog.innerHTML;
+        } else {
+          fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> ${currentEnemy.enemyName} tried to block but ${localStorage.getItem('userName')} was very lucky and crit his opponent for <b class="brown">15 damage.</b><br>` + fightLog.innerHTML;
+          obj.remainingEnemyHealth = obj.remainingEnemyHealth - 10 * k;
+          remainingEnemyHealth.textContent = currentEnemy.remainingEnemyHealth;
+          changeEnemyHealthLevel();
+        }
       } else {
-        fightLog.innerHTML = 'противник получил -10 урона, удар попал в цель!<br>' + fightLog.innerHTML;
-        obj.remainingEnemyHealth = obj.remainingEnemyHealth - 10;
+        let k = randomK(0.85);
+        if (k === 1) {
+          fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> and deal <b>10 damage.</b><br>` + fightLog.innerHTML;
+        } else {
+          fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> and crit <b class="brown">15 damage.</b><br>` + fightLog.innerHTML;
+        }
+        obj.remainingEnemyHealth = obj.remainingEnemyHealth - 10 * k;
         remainingEnemyHealth.textContent = currentEnemy.remainingEnemyHealth;
         changeEnemyHealthLevel();
       }
@@ -298,10 +325,23 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
   for (let i = 0; i < 5; i++) {
     if (arr3[i] === true) {
       if (arr4[i] === true) {
-        fightLog.innerHTML = 'игрок получил 0 урона, удар в блок!<br>' + fightLog.innerHTML;
+        let k = randomK(0.9);
+        if (k === 1) {
+          fightLog.innerHTML = `<strong>${currentEnemy.enemyName}</strong> attacked <strong>${localStorage.getItem('userName')}</strong> to <strong>${arr5[i]}</strong> but ${localStorage.getItem('userName')} was able to protect his ${arr5[i]}.<br>` + fightLog.innerHTML;
+        } else {
+          fightLog.innerHTML = `<strong>${currentEnemy.enemyName}</strong> attacked <strong>${localStorage.getItem('userName')}</strong> to <strong>${arr5[i]}</strong> ${localStorage.getItem('userName')} tried to block but ${currentEnemy.enemyName} was very lucky and crit his opponent for <b class="brown">${currentEnemy.hitPower * k} damage.</b><br>` + fightLog.innerHTML;
+          player.remainingPlayerHealth = player.remainingPlayerHealth - currentEnemy.hitPower * k;
+          remainingPlayerHealth.textContent = player.remainingPlayerHealth;
+          changePlayerHealthLevel();
+        }
       } else {
-        fightLog.innerHTML = 'игрок получил -10 урона, удар попал в цель!<br>' + fightLog.innerHTML;
-        player.remainingPlayerHealth = player.remainingPlayerHealth - 10;
+        let k = randomK(0.9);
+        if (k === 1) {
+          fightLog.innerHTML = `<strong>${currentEnemy.enemyName}</strong> attacked <strong>${localStorage.getItem('userName')}</strong> to <strong>${arr5[i]}</strong> and deal <b>${currentEnemy.hitPower} damage.</b><br>` + fightLog.innerHTML;
+        } else {
+          fightLog.innerHTML = `<strong>${currentEnemy.enemyName}</strong> attacked <strong>${localStorage.getItem('userName')}</strong> to <strong>${arr5[i]}</strong> and crit <b class="brown">${currentEnemy.hitPower * k} damage.</b><br>` + fightLog.innerHTML;
+        }
+        player.remainingPlayerHealth = player.remainingPlayerHealth - currentEnemy.hitPower * k;
         remainingPlayerHealth.textContent = player.remainingPlayerHealth;
         changePlayerHealthLevel();
       }
@@ -313,6 +353,7 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
     battlePopup.style.display = 'flex';
     battleResult.textContent = "Maybe next time :(";
     localStorage.setItem('userLoses', Number(localStorage.getItem('userLoses')) + 1);
+    playerHealthLevel.style.width = '0%';
   }
   if (obj.remainingEnemyHealth <=0) {
     remainingEnemyHealth.textContent = 0;
@@ -320,6 +361,7 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
     battlePopup.style.display = 'flex';
     battleResult.textContent = "Congratulations on your win!";
     localStorage.setItem('userWins', Number(localStorage.getItem('userWins')) + 1);
+    enemyHealthLevel.style.width = '0%';
   }
 }
 
@@ -327,10 +369,6 @@ attackButton.addEventListener('click', function() {
   fightIsGoing = true;
   const playerAttackZones = [...attackZonesForm].map(item => item.checked);
   const playerDefenceZones = [...defenceZonesForm].map(item => item.checked);
-  console.log('PAZ', playerAttackZones);
-  console.log('PDZ', playerDefenceZones);
-  console.log('EAZ', randomAttackZones(currentEnemy.numOfAttackZones));
-  console.log('EDZ', randomDefenceZones(currentEnemy.numOfDefenceZones));
   makeTurn(playerAttackZones, randomDefenceZones(currentEnemy.numOfDefenceZones), randomAttackZones(currentEnemy.numOfAttackZones), playerDefenceZones, currentEnemy);
 })
 
@@ -348,4 +386,7 @@ resultCloseButton.addEventListener('click', function() {
   remainingPlayerHealth.textContent = player.remainingPlayerHealth;
   changeEnemyHealthLevel();
   changePlayerHealthLevel();
+  fightLog.innerHTML = '';
+  clearInputs();
+  attackButton.disabled = true;
 })
