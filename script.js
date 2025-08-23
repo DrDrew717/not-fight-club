@@ -57,6 +57,32 @@ let fightIsGoing = false;
 avatar.src = userAvatar || './assets/img/default.jpg';
 avatarBattle.src = userAvatar || './assets/img/default.jpg';
 
+// Restore fight page
+
+if (localStorage.getItem('battleState')) {
+  const state = JSON.parse(localStorage.getItem('battleState'));
+
+    player.remainingPlayerHealth = state.playerHealth;
+    currentEnemy = state.enemyData;
+    currentEnemy.remainingEnemyHealth = state.enemyHealth;
+    fightLog.innerHTML = state.fightLog;
+
+    charPage.style.display = 'none';
+    settingsPage.style.display = 'none';
+    homePage.style.display = 'none';
+    battlePage.style.display = 'flex';
+    pageName.textContent = 'Battle';
+
+    remainingPlayerHealth.textContent = player.remainingPlayerHealth;
+    remainingEnemyHealth.textContent = currentEnemy.remainingEnemyHealth;
+    changePlayerHealthLevel();
+    changeEnemyHealthLevel();
+
+    enemyName.textContent = currentEnemy.enemyName;
+    enemyAvatar.src = currentEnemy.avatar;
+    enemyInitialHealth.textContent = currentEnemy.enemyHealth;
+}
+
 // Wins & Loses Count  
 
 if (!userWins && !userLoses) {
@@ -215,7 +241,9 @@ avatarButton4.addEventListener('click', function() {
 // FIGHT PAGE START
 
 fightButton.addEventListener('click', function() {
-  currentEnemy = chooseRandomEnemy();
+  if (!localStorage.getItem('battleState')) {
+    currentEnemy = chooseRandomEnemy();
+  }
   charPage.style.display = 'none';
   settingsPage.style.display = 'none';
   homePage.style.display = 'none';
@@ -233,6 +261,23 @@ fightButton.addEventListener('click', function() {
 const attackButton = document.querySelector('.attack-button');
 const attackZonesForm = document.querySelectorAll('input[name="attack-zones"]');
 const defenceZonesForm = document.querySelectorAll('input[name="defence-zones"]');
+
+const battleState = {
+  playerHealth: player.remainingPlayerHealth,
+  enemyHealth: currentEnemy.remainingEnemyHealth,
+  enemyData: currentEnemy,
+  fightLog: fightLog.innerHTML,
+};
+
+function saveBattleState() {
+  const state = {
+    playerHealth: player.remainingPlayerHealth,
+    enemyHealth: currentEnemy.remainingEnemyHealth,
+    enemyData: currentEnemy,
+    fightLog: fightLog.innerHTML
+  };
+  localStorage.setItem('battleState', JSON.stringify(state));
+}
 
 function clearInputs() {
   defenceZonesForm.forEach(item => {
@@ -300,7 +345,7 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
   for (let i = 0; i < 5; i++) {
     if (arr1[i] === true) {
       if (arr2[i] === true) {
-        let k = randomK(0.80);
+        let k = randomK(0.85);
         if (k === 1) {
           fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> but ${currentEnemy.enemyName} was able to protect his ${arr5[i]}.<br>` + fightLog.innerHTML;
         } else {
@@ -310,7 +355,7 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
           changeEnemyHealthLevel();
         }
       } else {
-        let k = randomK(0.80);
+        let k = randomK(0.85);
         if (k === 1) {
           fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> and deal <b>10 damage.</b><br>` + fightLog.innerHTML;
         } else {
@@ -370,6 +415,7 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
       localStorage.setItem('userWins', Number(localStorage.getItem('userWins')) + 1);
       enemyHealthLevel.style.width = '0%';
   }
+  saveBattleState();
 }
 
 attackButton.addEventListener('click', function() {
@@ -396,4 +442,5 @@ resultCloseButton.addEventListener('click', function() {
   fightLog.innerHTML = '';
   clearInputs();
   attackButton.disabled = true;
+  localStorage.removeItem('battleState');
 })
