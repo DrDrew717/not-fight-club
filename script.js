@@ -300,7 +300,7 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
   for (let i = 0; i < 5; i++) {
     if (arr1[i] === true) {
       if (arr2[i] === true) {
-        let k = randomK(0.85);
+        let k = randomK(0.80);
         if (k === 1) {
           fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> but ${currentEnemy.enemyName} was able to protect his ${arr5[i]}.<br>` + fightLog.innerHTML;
         } else {
@@ -310,7 +310,7 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
           changeEnemyHealthLevel();
         }
       } else {
-        let k = randomK(0.85);
+        let k = randomK(0.80);
         if (k === 1) {
           fightLog.innerHTML = `<strong>${localStorage.getItem('userName')}</strong> attacked <strong>${currentEnemy.enemyName}</strong> to <strong>${arr5[i]}</strong> and deal <b>10 damage.</b><br>` + fightLog.innerHTML;
         } else {
@@ -347,21 +347,28 @@ function makeTurn(arr1, arr2, arr3, arr4, obj) {
       }
     }
   }
-  if (player.remainingPlayerHealth <=0) {
+  if (player.remainingPlayerHealth <= 0 && obj.remainingEnemyHealth <= 0) {
     remainingPlayerHealth.textContent = 0;
     battlePopupContainer.style.display = 'flex';
     battlePopup.style.display = 'flex';
-    battleResult.textContent = "Maybe next time :(";
-    localStorage.setItem('userLoses', Number(localStorage.getItem('userLoses')) + 1);
+    battleResult.textContent = "It's a draw in this fight!";
     playerHealthLevel.style.width = '0%';
-  }
-  if (obj.remainingEnemyHealth <=0) {
     remainingEnemyHealth.textContent = 0;
-    battlePopupContainer.style.display = 'flex';
-    battlePopup.style.display = 'flex';
-    battleResult.textContent = "Congratulations on your win!";
-    localStorage.setItem('userWins', Number(localStorage.getItem('userWins')) + 1);
     enemyHealthLevel.style.width = '0%';
+  } else if (player.remainingPlayerHealth <= 0) {
+      remainingPlayerHealth.textContent = 0;
+      battlePopupContainer.style.display = 'flex';
+      battlePopup.style.display = 'flex';
+      battleResult.textContent = "Maybe next time :(";
+      localStorage.setItem('userLoses', Number(localStorage.getItem('userLoses')) + 1);
+      playerHealthLevel.style.width = '0%';
+  } else if (obj.remainingEnemyHealth <= 0) {
+      remainingEnemyHealth.textContent = 0;
+      battlePopupContainer.style.display = 'flex';
+      battlePopup.style.display = 'flex';
+      battleResult.textContent = "Congratulations on your win!";
+      localStorage.setItem('userWins', Number(localStorage.getItem('userWins')) + 1);
+      enemyHealthLevel.style.width = '0%';
   }
 }
 
