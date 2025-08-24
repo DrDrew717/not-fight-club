@@ -1,0 +1,527 @@
+* {
+  box-sizing: border-box;
+  border: 0px solid red;
+  padding: 0;
+  margin: 0;
+}
+
+strong {
+  color: darkblue;
+}
+
+.brown {
+  color: brown;
+}
+
+html {
+  height: 100vh;
+  width: 100vw;
+  /*overflow: hidden;*/
+}
+
+/* Registration page */
+
+.reg-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.character-name-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reg-form-header {
+  font: 400 24px Times;
+  margin: 0 0 30px 0;
+}
+
+.reg-form-label {
+  font: 400 16px Times;
+  margin: 0 0 5px 0;
+}
+
+.reg-form-input {
+  border: 1px solid rgb(110, 156, 255);
+  border-radius: 5px;
+  margin: 0 0 25px 0;
+  padding: 0 5px;
+  width: 180px;
+  height: 32px;
+  font: 400 16px Times;
+}
+
+.reg-form-button {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 160px;
+  height: 44px;
+  font: 400 18px Times;
+  align-self: center;
+}
+
+/* Main menu */
+
+.main-menu-container {
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid black;
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+}
+
+.menu-button-box {
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+  height: 20px;
+}
+
+/* Home page */
+
+.home-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  width: 100%;
+}
+
+.fight-button {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 100px;
+  height: 44px;
+  font: 400 18px Times;
+  align-self: center;
+}
+
+/* Character page */
+
+.character-container {
+  display: none;
+  flex-direction: row;
+  justify-content: start;
+  align-items: top;
+  padding: 20px;
+  column-gap: 30px;
+  height: calc(100vh - 60px);
+  width: 100%;
+}
+
+.avatar-box {
+  position: relative;
+  width: 300px;
+  height: 350px;
+}
+
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 350px;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.avatar-button-box {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 350px;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+.avatar-button-box:hover {
+  opacity: 1;
+}
+
+.avatar-button {
+  background: white url('./assets/svg/edit.svg') center no-repeat;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.player-name {
+  padding: 0 0 0 0;
+}
+
+.name-wins-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  row-gap: 10px;
+}
+
+.wins {
+  color: green;
+}
+
+.wins-count {
+  color: green;  
+}
+
+.loses {
+  color: red;
+  margin: 0 0 0 10px;
+}
+
+.loses-count {
+  color: red;
+}
+
+/* Popup */
+
+.avatar-popup-container {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: ;
+  pointer-events: ;
+  background-color: rgba(255, 255, 255, 0.45);
+  z-index: 9; 
+}
+
+.avatar-popup {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  padding: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 50vh;
+  width: 50vw;
+  background-color: rgba(128, 128, 128, 0.55);
+  border-radius: 15px;
+  z-index: 15;
+  pointer-events: ;
+}
+
+.mini-avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 165px;
+  height: 200px;
+  z-index: 1;
+}
+
+.mini-avatar-button {
+  background: white url('./assets/svg/check_circle.svg') center no-repeat;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.close-button {
+  align-self: flex-end;
+  background: white url("./assets/svg/close.svg") no-repeat center;
+  background-size: 20px 20px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+}
+
+.mini-avatars-box {
+  padding: 10px 0 0 0;
+  display: flex;
+  column-gap: 10px;
+}
+
+.mini-avatar-wrapper {
+  position: relative;
+  width: 165px;
+  height: 200px;
+}
+ 
+.mini-avatar-button-box {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 165px;
+  height: 200px;
+  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.mini-avatar-button-box:hover {
+  opacity: 1;
+}
+
+/* Settings page */
+
+.settings-container {
+  display: none;
+  flex-direction: row;
+  height: calc(100vh - 60px);
+  width: 100%;
+  padding: 20px;
+}
+
+.settings-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+}
+
+.name-edit-button {
+  display: block;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
+  font: 400 16px Times;
+}
+
+.settings-player-name {
+  margin: 0 10px 0 10px;
+  padding: 0 0 0 0;
+}
+
+.settings-label {
+  margin: 0 0 0 0;
+}
+
+.settings-input {
+  display: none;
+  border: 1px solid rgb(110, 156, 255);
+  border-radius: 5px;
+  margin: 0 0 0 10px;
+  padding: 0 5px;
+  width: 180px;
+  height: 32px;
+  font: 400 16px Times;
+}
+
+.save-button {
+  display: none;
+  margin: 0 0 0 10px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
+  font: 400 16px Times;
+}
+
+/* Battle page */
+
+.battle-container {
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: calc(100vh - 60px);
+  width: 100%;
+}
+
+.fight-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  padding: 20px;
+  height: 100%;
+}
+
+.player-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 20px 0 0 0;
+}
+
+.player-avatar {
+  width: 300px;
+  height: 350px;
+  margin: 20px 0;
+}
+
+.player-health {
+  width: 100%;
+  height: 16px;
+  background-color: rgb(165, 0, 0);
+  border-radius: 5px;
+}
+
+.player-health-box {
+  width: 300px;
+  height: 16px;
+  background-color: rgb(200, 200, 200);
+  border-radius: 5px;
+}
+
+.enemy-avatar {
+  width: 300px;
+  height: 350px;
+  margin: 20px 0;
+}
+
+.enemy-health {
+  width: 100%;
+  height: 16px;
+  background-color: rgb(165, 0, 0);
+  border-radius: 5px;
+}
+
+.enemy-health-box {
+  width: 300px;
+  height: 16px;
+  background-color: rgb(200, 200, 200);
+  border-radius: 5px;
+}
+
+.fight-form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.attack-form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+  padding: 0 10px 0 0;
+  width: 120px;
+  height: 150px;
+  border-right: 1px solid rgb(0, 0, 0);
+}
+
+.defence-form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  padding: 0 0 0 10px;
+  width: 120px;
+  height: 150px;
+}
+
+.attack-button {
+  display: block;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 90px;
+  height: 40px;
+  font: 400 16px Times;
+}
+
+.log-wrapper {
+  padding: 20px;
+  height: 230px;
+  overflow-y: auto; 
+}
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] + label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 0 0 0;
+  }
+
+  input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #333333b6;
+    border-radius: 50%;
+    margin-right: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="checkbox"]:checked + label::before {
+    background-color: #3273f6;
+    border: 1px solid #3273f6;
+    box-shadow: inset 0 0 0 1.5px white;
+  }
+
+  /* Popup */
+
+  .battle-popup-container {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: ;
+    pointer-events: ;
+    background-color: rgba(255, 255, 255, 0.45);
+    z-index: 9; 
+  }
+
+  .battle-popup {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50vh;
+    width: 50vw;
+    background-color: rgb(196, 195, 195);
+    border-radius: 15px;
+    z-index: 15;
+    pointer-events: ;
+  }
+
+  .battle-result-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    height: 85%;
+  }
+
+  .result-close-button {
+    align-self: flex-end;
+    background: white url("./assets/svg/close.svg") no-repeat center;
+    background-size: 20px 20px;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+  }
