@@ -52,8 +52,6 @@ const resultCloseButton = document.querySelector('.result-close-button');
 const playerHealthLevel = document.querySelector('.player-health');
 const enemyHealthLevel = document.querySelector('.enemy-health');
 
-let fightIsGoing = false;
-
 avatar.src = userAvatar || './assets/img/default.jpg';
 avatarBattle.src = userAvatar || './assets/img/default.jpg';
 
